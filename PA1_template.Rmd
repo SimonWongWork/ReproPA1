@@ -1,0 +1,82 @@
+# Reproducible Research: Peer Assessment 1
+
+
+### Loading & preprocessing the data.
+```{r loaddata}
+unzip(zipfile = "repdata-data-activity.zip")
+dataRead <- read.csv("activity.csv")
+```
+
+
+- View the loaded data frame.
+```{r showdata}
+names(dataRead)
+str(dataRead)
+head(dataRead, 10)
+```
+
+- Process/transform the data (if necessary) into a format suitable for analysis.
+```{r processdata}
+# Subset data frame to values without na for next process.
+data_Without_NA <- dataRead[complete.cases(dataRead),]
+```
+
+
+### What is mean total number of steps taken per day?
+
+- Plot a histogram of the total number of steps taken each day.
+```{r}
+# Find out the total steps taken per day.
+totalSteps <- aggregate(steps ~ date, data_Without_NA, sum)
+
+# Put the descriptive variable names in data frame.
+names(totalSteps)[2] <- "sum_steps"
+
+# View new created data frame.
+head(totalSteps, 10)
+
+# Plot histogram of the total steps taken per day.
+hist(
+        totalSteps$sum_steps,
+        col = "orange",
+        main = "Histogram of the (Total Number of (Steps Taken Each Day))",
+        xlab = "(Total Number of (Steps Taken Each Day))",
+        breaks = 30
+)
+```
+
+- Calculate and report the mean and median of the total number of steps taken per day.
+```{r}
+mean(totalSteps$sum_steps)
+median(totalSteps$sum_steps)
+```
+
+
+### What is the average daily activity pattern?
+- Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+```{r}
+# the average number of steps taken, averaged across all days for each 5-minute
+# Find the "interval" dataframe.
+interval_dataFrame <- aggregate(steps ~ interval, data_Without_NA, mean)
+
+# Put the descriptive variable names in data frame.
+names(interval_dataFrame)[2] <- "mean_steps"
+
+# View new created data frame.
+head(interval_dataFrame, 10)
+
+# Format plot margins to ready for long text labels.
+par( mai = c(1.2, 1.5, 1,1) )
+
+# Plot time series.
+plot(
+        x = interval_dataFrame$interval,
+        y = interval_dataFrame$mean_steps,
+        type = "l",
+        main = "Time Series Plot of the 5-Minute Interval\n and the Average Number of Steps Taken, Averaged Across All Days",
+        xlab = "5-Minute Interval",
+        ylab = "Average Number of Steps Taken,\n Averaged Across All Days"
+)
+```
+
+
