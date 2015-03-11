@@ -39,8 +39,8 @@ head(totalSteps, 10)
 hist(
         totalSteps$sum_steps,
         col = "orange",
-        main = "Histogram of the (Total Number of (Steps Taken Each Day))",
-        xlab = "(Total Number of (Steps Taken Each Day))",
+        main = "Histogram of the Total Number of Steps Taken Each Day",
+        xlab = "Total Number of Steps Taken Each Day",
         breaks = 30
 )
 ```
@@ -65,7 +65,7 @@ names(interval_dataFrame)[2] <- "mean_steps"
 # View new created data frame.
 head(interval_dataFrame, 10)
 
-# Format plot margins to ready for long text labels.
+# Format plot margins (bottom, left, top, right) for long text labels.
 par( mai = c(1.2, 1.5, 1,1) )
 
 # Plot time series.
@@ -78,5 +78,95 @@ plot(
         ylab = "Average Number of Steps Taken,\n Averaged Across All Days"
 )
 ```
+
+
+- Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+```{r}
+# Find out the maximum steps.
+interval_dataFrame[ interval_dataFrame$mean_steps == max(interval_dataFrame$mean_steps), ]
+```
+
+### Imputing missing values
+- Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+```{r how_many_missing}
+missing <- is.na(dataRead$steps)
+
+# How many missing
+table(missing)
+```
+
+
+
+- Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+```{r}
+# Use the mean for the 5-minute interval to simulate NA values for a given internval.
+```
+
+
+- Create a new dataset that is equal to the original dataset but with the missing data filled in.
+```{r}
+# First, merge the original activity data frame with interval data frame.
+NA_filled <- merge(dataRead, interval_dataFrame, by = 'interval', all.y = F)
+
+# Then, merge NA values with averages rounding up for integers.
+NA_filled$steps[is.na(NA_filled$steps)] <- as.integer(round(NA_filled$mean_steps[is.na(NA_filled$steps)]))
+
+# Drop and reorder columns to match original activity data frame.
+keeps <- names(dataRead)
+NA_filled <- NA_filled[keeps]
+head(NA_filled, 10)
+```
+
+
+- Make a histogram of the total number of steps taken each day
+```{r}
+# Find out the total number of steps taken per day with filled NA value.
+newTotal <- aggregate(steps ~ date, NA_filled, sum)
+
+# Put in the descriptive variable names in the newTotal data frame.
+names(newTotal)[2] <- "sum_steps"
+
+# Take a glance on this new data frame.
+head(newTotal, 10)
+
+# Plot the histogram based on new data frame.
+hist(
+        newTotal$sum_steps,
+        col = "cyan",
+        main = "Histogram of the Total Number of Steps Taken Each Day \nwith the missing data filled in",
+        xlab = "Total Number of Steps Taken Each Day",
+        breaks = 30
+)
+
+# Mean of this new filled data frame.
+mean(newTotal$sum_steps)
+
+# Median of this new filled data frame.
+median(newTotal$sum_steps)
+```
+
+- Do these values differ from the estimates from the first part of the assignment?
+```{r}
+# It is subtle difference in Mean calculation between two parts of the assignment; 
+# Mean = 10766.19 (original data frame) and 10765.64 (data frame filled with NA),
+
+# But quite apparently difference in Median calculation between these two parts of the assignment.
+# Median = 10765 (original data frame) and 10762 (data frame filled with NA),
+```
+
+
+- What is the impact of imputing missing data on the estimates of the total daily number of steps?
+```{r}
+# The impact is depend on the imputing level of the missing data.
+# As shown in the experimental value, there was practically no much difference 
+# when using the average for a given interval as the averages is basically 
+# pulled towards to the inserted average value.
+```
+
+
+### Are there differences in activity patterns between weekdays and weekends?
+
+
+
 
 
