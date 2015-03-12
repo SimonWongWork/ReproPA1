@@ -147,7 +147,7 @@ median(newTotal$sum_steps)
 
 - Do these values differ from the estimates from the first part of the assignment?
 ```{r}
-# It is subtle difference in Mean calculation between two parts of the assignment; 
+# It is a subtle difference in Mean calculation between two parts of the assignment; 
 # Mean = 10766.19 (original data frame) and 10765.64 (data frame filled with NA),
 
 # But quite apparently difference in Median calculation between these two parts of the assignment.
@@ -165,6 +165,59 @@ median(newTotal$sum_steps)
 
 
 ### Are there differences in activity patterns between weekdays and weekends?
+- Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+```{r}
+# Create a new data frame.
+newDataFrame <- NA_filled
+
+# Prepare for up logical/test vector.
+weekend <- weekdays( as.Date(newDataFrame$date)) %in% c("Saturday", "Sunday" )
+
+# Fill in weekday column.
+newDataFrame$daytype <- "weekday"
+
+# Subsitute "weekday" with "weekend" where day == Sat/Sun.
+newDataFrame$daytype[weekend == TRUE] <- "weekend"
+
+# Convert new character column to factor.
+newDataFrame$daytype <- as.factor(newDataFrame$daytype)
+
+# Display the new data frame.
+str(newDataFrame)
+
+head(newDataFrame, 10)
+
+# Verify the outcome.
+weekdays( as.Date(newDataFrame$date[3]) )
+```
+
+
+### Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+```{r}
+# the average number of steps taken, averaged across all days for each 5-minute interval.
+new_Interval <- aggregate(steps ~ interval + daytype, newDataFrame, mean)
+
+## Add descriptive variable names for easily understanding.
+names(new_Interval)[3] <- "mean_steps"
+
+# Display the new data frame.
+head(new_Interval, 10)
+
+# Plot time series based on the new data frame.
+library(lattice)
+xyplot(
+        mean_steps ~ interval | daytype,
+        new_Interval,
+        type = "l",
+        layout = c(1,2),
+        main = "Time Series Plot of the 5-Minute Interval\nand the Average Number of Steps Taken,\nAveraged Across All Weekday Days or Weekend Days",
+        xlab = "5-Minute Interval",
+        ylab = "Average Number of Steps Taken"
+)
+
+```
+
+
 
 
 
