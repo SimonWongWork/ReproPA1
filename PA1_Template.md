@@ -45,6 +45,9 @@ hist(
 )
 ```
 
+
+
+
 - Calculate and report the mean and median of the total number of steps taken per day.
 ```{r}
 mean(totalSteps$sum_steps)
