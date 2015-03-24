@@ -1,6 +1,3 @@
----
-output: pdf_document
----
 # Reproducible Research: Peer Assessment 1
 
 
@@ -47,6 +44,9 @@ hist(
         breaks = 30
 )
 ```
+
+
+
 
 - Calculate and report the mean and median of the total number of steps taken per day.
 ```{r}
@@ -219,10 +219,3 @@ xyplot(
 )
 
 ```
-
-
-
-
-
-
-
