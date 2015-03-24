@@ -83,7 +83,7 @@ plot(
         ylab = "Average Number of Steps Taken,\n Averaged Across All Days"
 )
 ```
-
+![Time Series Plot of 5-minutes interval] (figure/Time Series Plot of 5-minutes interval.jpg)
 
 - Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 ```{r}
@@ -142,6 +142,8 @@ hist(
         xlab = "Total Number of Steps Taken Each Day",
         breaks = 30
 )
+
+![Histogram of the Total Number of Steps Taken Each day with the missing data filled in] (figure/Histogram of the Total Number of Steps Taken Each day with the missing data filled in.jpg)
 
 # Mean of this new filled data frame.
 mean(newTotal$sum_steps)
@@ -221,3 +223,4 @@ xyplot(
 )
 
 ```
+![Time Series Plot of 5_minutes across all weekdays](figure/Time Series Plot of 5_minutes across all weekdays.jpg)
