@@ -45,6 +45,7 @@ hist(
 )
 ```
 
+![histogram of the Total Number of Steps Taken Each day] (histogram of the Total Number of Steps Taken Each day.jpg)
 
 
 
