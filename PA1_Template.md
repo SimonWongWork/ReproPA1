@@ -46,6 +46,8 @@ hist(
 ```
 
 
+![histogram of the Total Number of Steps Taken Each day] (figure/histogram of the Total Number of Steps Taken Each day.jpg)
+
 
 
 - Calculate and report the mean and median of the total number of steps taken per day.
@@ -81,7 +83,7 @@ plot(
         ylab = "Average Number of Steps Taken,\n Averaged Across All Days"
 )
 ```
-
+![Time Series Plot of 5-minutes interval] (figure/Time Series Plot of 5-minutes interval.jpg)
 
 - Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 ```{r}
@@ -141,12 +143,14 @@ hist(
         breaks = 30
 )
 
+
 # Mean of this new filled data frame.
 mean(newTotal$sum_steps)
 
 # Median of this new filled data frame.
 median(newTotal$sum_steps)
 ```
+![Histogram of the Total Number of Steps Taken Each day with the missing data filled in] (figure/Histogram of the Total Number of Steps Taken Each day with the missing data filled in.jpg)
 
 - Do these values differ from the estimates from the first part of the assignment?
 ```{r}
@@ -219,3 +223,4 @@ xyplot(
 )
 
 ```
+![Time Series Plot of 5_minutes across all weekdays](figure/Time Series Plot of 5_minutes across all weekdays.jpg)
