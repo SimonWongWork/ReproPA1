@@ -143,7 +143,6 @@ hist(
         breaks = 30
 )
 
-![Histogram of the Total Number of Steps Taken Each day with the missing data filled in] (figure/Histogram of the Total Number of Steps Taken Each day with the missing data filled in.jpg)
 
 # Mean of this new filled data frame.
 mean(newTotal$sum_steps)
@@ -151,6 +150,7 @@ mean(newTotal$sum_steps)
 # Median of this new filled data frame.
 median(newTotal$sum_steps)
 ```
+![Histogram of the Total Number of Steps Taken Each day with the missing data filled in] (figure/Histogram of the Total Number of Steps Taken Each day with the missing data filled in.jpg)
 
 - Do these values differ from the estimates from the first part of the assignment?
 ```{r}
